@@ -1,9 +1,6 @@
 import React from "react";
 import Button from "./Button";
-
-const QrCode = () => {
-  return <p>QR Code (sample)</p>;
-};
+import QrCode from "./QrCode";
 
 const DownloadButton = () => {
   return <Button type="button">Download</Button>;
@@ -47,7 +44,18 @@ const MainContent = ({ config }) => {
 
           {/* QRコード */}
           <div className="flex flex-col items-center justify-center">
-            <QrCode />
+            <QrCode
+              value={
+                "WIFI:T:" +
+                config.authenticationMethod +
+                ";S:" +
+                config.ssid +
+                ";P:" +
+                config.password +
+                ";H:" +
+                config.hiddenSSID
+              }
+            />
           </div>
         </div>
       </div>

@@ -31,6 +31,63 @@ const SettingsForm = ({ config, onConfigChange }) => {
             className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </label>
+
+        <div>
+          <p className="text-sm font-medium mb-2">認証方式</p>
+          <div className="flex flex-col gap-2">
+            {[
+              { value: "WPA2", label: "WPA2" },
+              { value: "WPA3", label: "WPA3" },
+              { value: "WEP", label: "WEP" },
+              { value: "Open", label: "Open (No Password)" },
+            ].map((auth) => (
+              <label
+                key={auth.value}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name="authenticationMethod"
+                  value={auth.value}
+                  checked={config.authenticationMethod === auth.value}
+                  onChange={(e) =>
+                    onConfigChange({
+                      ...config,
+                      authenticationMethod: e.target.value,
+                    })
+                  }
+                  className="accent-blue-500"
+                />
+                <span className="text-sm">{auth.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* hidden: ssid? */}
+        <div>
+          <p className="text-sm font-medium mb-2">隠しSSID?</p>
+          <div className="flex gap-4">
+            {["true", "false"].map((val, i) => (
+              <label
+                key={val}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name="hiddenSSID"
+                  value={val}
+                  checked={config.hiddenSSID === val}
+                  onChange={(e) =>
+                    onConfigChange({ ...config, hiddenSSID: e.target.value })
+                  }
+                  className="accent-blue-500"
+                />
+                <span>{i === 0 ? "Yes" : "No"}</span>
+              </label>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Section: Orientation */}
