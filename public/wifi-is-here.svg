@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- background circle -->
+  <circle cx="256" cy="256" r="256" fill="#1A1A1A"></circle>
+
+  <!-- wifi arcs -->
+  <path d="M256 160C175.5 160 103.4 190.4 48 241.1" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M256 160C336.5 160 408.6 190.4 464 241.1" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M256 240C207.2 240 163.7 258.1 132 288.2" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M256 240C304.8 240 348.3 258.1 380 288.2" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M256 320C236.6 320 219.4 325.9 208 336.1" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M256 320C275.4 320 292.6 325.9 304 336.1" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- wifi dot -->
+  <circle cx="256" cy="384" r="24" fill="white"></circle>
+
+  <!-- blog / brush motif (a single expressive stroke) -->
+  <path d="M200 430C240 446 272 448 312 434" stroke="white" stroke-width="28" stroke-linecap="round" opacity="0.6"></path>
+</svg>
