@@ -89,68 +89,6 @@ const SettingsForm = ({ config, onConfigChange }) => {
           </div>
         </div>
       </div>
-
-      {/* Section: Orientation */}
-      <div>
-        <p className="font-medium mb-2">Orientation</p>
-        <div className="flex gap-4">
-          {["1", "2"].map((val, i) => (
-            <label key={val} className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="landscape"
-                value={val}
-                checked={config.landscape === val}
-                onChange={(e) =>
-                  onConfigChange({ ...config, landscape: e.target.value })
-                }
-                className="accent-blue-500"
-              />
-              <span>{i === 0 ? "Landscape" : "Portrait"}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      {/* Section: Design */}
-      <div>
-        <p className="font-medium mb-2">Design</p>
-        <div className="flex gap-4">
-          {["1", "2", "3"].map((val) => (
-            <label key={val} className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="design"
-                value={val}
-                checked={config.design === val}
-                onChange={(e) =>
-                  onConfigChange({ ...config, design: e.target.value })
-                }
-                className="accent-blue-500"
-              />
-              <span>Design {val}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      {/* Section: Background */}
-      <div className="flex flex-col gap-2">
-        <p className="font-medium">Background Image</p>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            onConfigChange({ ...config, backgroundImage: e.target.value })
-          }
-          className="text-sm"
-        />
-        <img
-          src={config.backgroundImage}
-          alt="background"
-          className="w-full rounded-md border mt-2"
-        />
-      </div>
     </div>
   );
 };

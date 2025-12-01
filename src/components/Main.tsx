@@ -1,20 +1,83 @@
-import React from "react";
+import React, { useRef } from "react";
 import Button from "./Button";
 import QrCode from "./QrCode";
 
-const DownloadButton = () => {
-  return <Button type="button">Download</Button>;
+const DownloadButton = ({ qrCodeRef, ssid }) => {
+  const handleDownload = () => {
+    if (qrCodeRef.current) {
+      const canvas = qrCodeRef.current;
+      const url = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = `wifi-qrcode-${ssid || "wifi"}.png`;
+      link.href = url;
+      link.click();
+    }
+  };
+
+  return (
+    <Button type="button" onClick={handleDownload}>
+      QR Code Download
+    </Button>
+  );
 };
 
-const ShareButton = () => {
-  return <Button type="button">Share</Button>;
+const ShareButton = ({ config }) => {
+  const handleShare = async () => {
+    const shareText = `WiFi情報\nSSID: ${config.ssid}\nパスワード: ${config.password}\n認証方式: ${config.authenticationMethod}`;
+    const shareData = {
+      title: "WiFi情報",
+      text: shareText,
+    };
+
+    try {
+      if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare(shareData)
+      ) {
+        await navigator.share(shareData);
+      } else {
+        // Web Share APIが利用できない場合はクリップボードにコピー
+        await navigator.clipboard.writeText(shareText);
+        alert("WiFi情報をクリップボードにコピーしました");
+      }
+    } catch (error) {
+      // ユーザーが共有をキャンセルした場合など
+      if (error.name !== "AbortError") {
+        // フォールバック: クリップボードにコピー
+        try {
+          await navigator.clipboard.writeText(shareText);
+          alert("WiFi情報をクリップボードにコピーしました");
+        } catch (clipboardError) {
+          console.error(
+            "クリップボードへのコピーに失敗しました:",
+            clipboardError
+          );
+        }
+      }
+    }
+  };
+
+  return (
+    <Button type="button" onClick={handleShare}>
+      Share
+    </Button>
+  );
 };
 
 const PrintButton = () => {
-  return <Button type="button">Print</Button>;
+  const handlePrint = () => {
+    window.print();
+  };
+
+  return (
+    <Button type="button" onClick={handlePrint}>
+      Print
+    </Button>
+  );
 };
 
-const MainContent = ({ config }) => {
+const MainContent = ({ config, qrCodeRef }) => {
   return (
     <div className="w-full aspect-video border-2 border-gray-300 flex flex-col items-center justify-between p-4 sm:p-6 lg:p-8">
       {/* タイトル部分 */}
@@ -51,6 +114,7 @@ const MainContent = ({ config }) => {
           {/* QRコード */}
           <div className="flex flex-col items-center justify-center -mt-2 lg:-mt-12 xl:-mt-32">
             <QrCode
+              ref={qrCodeRef}
               value={
                 "WIFI:T:" +
                 config.authenticationMethod +
@@ -72,22 +136,30 @@ const MainContent = ({ config }) => {
   );
 };
 
-const MainButtons = ({ onSettingsClick }) => {
+const MainButtons = ({ onSettingsClick, qrCodeRef, config }) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-5">
-      <DownloadButton />
-      <ShareButton />
+    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-5 no-print">
+      <DownloadButton qrCodeRef={qrCodeRef} ssid={config.ssid} />
+      <ShareButton config={config} />
       <PrintButton />
-      <Button onClick={onSettingsClick}>Settings</Button>
+      <Button onClick={onSettingsClick} className="no-print">
+        Settings
+      </Button>
     </div>
   );
 };
 
 export const Main = ({ config, onSettingsClick }) => {
+  const qrCodeRef = useRef<HTMLCanvasElement>(null);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen p-2">
-      <MainContent config={config} />
-      <MainButtons onSettingsClick={onSettingsClick} />
+      <MainContent config={config} qrCodeRef={qrCodeRef} />
+      <MainButtons
+        onSettingsClick={onSettingsClick}
+        qrCodeRef={qrCodeRef}
+        config={config}
+      />
     </div>
   );
 };

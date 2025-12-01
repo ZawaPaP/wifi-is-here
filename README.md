@@ -14,11 +14,17 @@
 
 Web ページをそのまま表示しての使用もできますし、スライド用に画像をダウンロード、印刷することもできます。
 
-## 技術スタック
+![image.png](.images/image.png)
 
-- React
-- Vite
-- Tailwind CSS
-- QR Code React
-- GitHub Pages
-- Github Actions
+## ローカルでの開発
+
+```bash
+npm install
+npm run dev
+```
+
+## ビルド
+
+```bash
+npm run build
+```

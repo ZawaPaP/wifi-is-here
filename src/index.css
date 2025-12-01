@@ -19,6 +19,13 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  /* ミニマルなグラデーション背景 */
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 50%, #f8f9fa 100%);
+  background-attachment: fixed;
+  /* 微細なドットパターンを追加 */
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.02) 1px, transparent 0);
+  background-size: 24px 24px;
 }
 
 button {
@@ -49,5 +56,65 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* 印刷用スタイル */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+    background-image: none;
+  }
+  
+  @page {
+    margin: 0.5cm;
+    size: A4 landscape;
+  }
+  
+  /* 印刷時にQRコードのサイズを固定 */
+  canvas {
+    width: 300px !important;
+    height: 300px !important;
+    max-width: 300px !important;
+    max-height: 300px !important;
+    min-width: 300px !important;
+    min-height: 300px !important;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    object-fit: contain;
+  }
+  
+  /* QRコードのコンテナを固定サイズに */
+  div:has(> canvas) {
+    width: 300px !important;
+    height: 300px !important;
+    max-width: 300px !important;
+    max-height: 300px !important;
+    min-width: 300px !important;
+    min-height: 300px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* レイアウトの崩れを防ぐ */
+  .aspect-video {
+    aspect-ratio: 16/9 !important;
+    page-break-inside: avoid;
+  }
+  
+  /* 印刷時にflexboxのレイアウトを維持 */
+  .flex {
+    display: flex !important;
+  }
+  
+  /* 印刷時にページ分割を防ぐ */
+  * {
+    page-break-inside: avoid;
   }
 }

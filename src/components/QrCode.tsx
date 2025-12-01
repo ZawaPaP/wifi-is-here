@@ -1,11 +1,11 @@
 import { QRCodeCanvas } from "qrcode.react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 
 type QrCodeProps = {
   value: string;
 };
 
-const QrCode = ({ value }: QrCodeProps) => {
+const QrCode = forwardRef<HTMLCanvasElement, QrCodeProps>(({ value }, ref) => {
   console.log("QRCode URL: ", value);
 
   const [qrSize, setQrSize] = useState(192); // デフォルトサイズ
@@ -36,10 +36,17 @@ const QrCode = ({ value }: QrCodeProps) => {
   }, []);
   console.log("QRCode Size: ", qrSize);
   return (
-    <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64">
-      <QRCodeCanvas value={value} size={qrSize} className="w-full h-full" />
+    <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 print:!w-[300px] print:!h-[300px]">
+      <QRCodeCanvas
+        value={value}
+        size={qrSize}
+        className="w-full h-full print:!w-[300px] print:!h-[300px]"
+        ref={ref}
+      />
     </div>
   );
-};
+});
+
+QrCode.displayName = "QrCode";
 
 export default QrCode;
