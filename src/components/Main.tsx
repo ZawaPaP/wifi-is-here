@@ -81,9 +81,9 @@ const MainContent = ({ config, qrCodeRef }) => {
   return (
     <div className="w-full aspect-video border-2 border-gray-300 flex flex-col items-center justify-between p-4 sm:p-6 lg:p-8">
       {/* タイトル部分 */}
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 mt-8 sm:mt-10 lg:mt-12">
         <p className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold underline">
-          WIFI_IS_HERE
+          {config.title}
         </p>
       </div>
 

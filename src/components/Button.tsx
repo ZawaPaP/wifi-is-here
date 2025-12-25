@@ -8,7 +8,7 @@ type ButtonProps = {
 };
 
 const defaultClassName =
-  "bg-gray-500 text-white p-2 rounded-md shadow-md hover:bg-gray-600";
+  "bg-gray-700 text-black p-2 rounded-md shadow-md hover:bg-gray-800 font-medium";
 
 const Button = ({ children, className, onClick, type }: ButtonProps) => {
   return (

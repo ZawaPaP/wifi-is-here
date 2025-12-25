@@ -7,6 +7,19 @@ const SettingsForm = ({ config, onConfigChange }) => {
       {/* Section: WiFi Info */}
       <div className="flex flex-col gap-2">
         <label className="flex flex-col">
+          <span className="text-sm font-medium mb-1">Title</span>
+          <input
+            type="text"
+            placeholder="Enter title"
+            value={config.title}
+            onChange={(e) =>
+              onConfigChange({ ...config, title: e.target.value })
+            }
+            className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </label>
+
+        <label className="flex flex-col">
           <span className="text-sm font-medium mb-1">SSID</span>
           <input
             type="text"

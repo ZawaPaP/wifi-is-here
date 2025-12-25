@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Main } from "./components/Main";
 import { Settings } from "./components/Settings";
 const defaultConfig = {
+  title: "WIFI IS HERE",
   ssid: "WIFI_IS_HERE",
   password: "1234567890",
   landscape: "1",
